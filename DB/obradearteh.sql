@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-06-2026 a las 23:36:47
+-- Tiempo de generación: 01-07-2026 a las 02:12:34
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.1.25
 
@@ -31,9 +31,10 @@ CREATE TABLE `usuarios` (
   `id` int(11) NOT NULL,
   `nombre` varchar(200) NOT NULL,
   `apellido` varchar(200) NOT NULL,
-  `telefono` int(11) NOT NULL,
+  `telefono` bigint(200) NOT NULL,
   `correo` varchar(200) NOT NULL,
-  `rol` enum('usuario','administrador') NOT NULL DEFAULT 'usuario'
+  `rol` enum('usuario','administrador') NOT NULL DEFAULT 'usuario',
+  `contrasena` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -44,7 +45,9 @@ CREATE TABLE `usuarios` (
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `contrasena` (`contrasena`),
+  ADD UNIQUE KEY `correo` (`correo`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
