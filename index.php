@@ -3,24 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inicio de sesión</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <div>
+    <div class="contenedor">
         <h1>ObraDeArteH</h1>
-        <hr>
-        <?php
-            if (isset($_GET['error'])){
-            ?>
-            <p class="error">
-                <?php
-                    echo $_GET['error']
-                ?>
-            </p>
-        <?php
-           }
-        ?>
         <hr>
         <h2>Inicio de sesión</h2>
         <form action="Login/InisioSesion.php" method="post">
@@ -32,7 +20,8 @@
 
             <input type="submit" value="Inisiarsesion" class="transicion"><br>
         </form>
-        <a href="Login/CrearUsuario.php"><button>Crear cuenta</button></a><br>
+        <hr>
+        <a href="Login/procesoCrearUsuario.php"><button>Crear cuenta</button></a><br>
         <br>
         <br>
         <footer>
