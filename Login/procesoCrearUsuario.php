@@ -44,45 +44,69 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear cuenta</title>
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../assets/estilos.css">
 </head>
 <body>
-    <div class="contenedor">
-        <h1>ObraDeArteH</h1>
-        <hr>
-        <h2>Crear cuenta</h2>
- 
-        <?php if ($error): ?>
-            <p style="color:red;"><?= htmlspecialchars($error) ?></p>
-        <?php endif; ?>
- 
-        <?php if ($exito): ?>
-            <p style="color:green;"><?= htmlspecialchars($exito) ?></p>
-            <a href="../index.php"><button>Ir a iniciar sesión</button></a>
-        <?php else: ?>
-            <form action="procesoCrearUsuario.php" method="post">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required><br><br>
- 
-                <label for="apellido">Apellido:</label>
-                <input type="text" id="apellido" name="apellido" required><br><br>
- 
-                <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" required><br><br>
- 
-                <label for="correo">Correo:</label>
-                <input type="email" id="correo" name="correo" required><br><br>
- 
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" name="contrasena" required><br><br>
- 
-                <input type="submit" value="Crear cuenta" class="transicion">
-            </form>
-        <?php endif; ?>
- 
-        <br>
-        <hr>
-        <a href="../index.php" class="transicion"><button>Volver</button></a>
+    <div class="pagina">
+        <div class="tarjeta tarjeta--marco">
+            <div class="tarjeta__encabezado">
+                <h1 class="marca">ObraDeArteH</h1>
+                <hr class="filete">
+                <h2 class="titulo-seccion">Crear cuenta</h2>
+            </div>
+
+            <div class="tarjeta__cuerpo">
+                <?php if ($error): ?>
+                    <div class="alerta alerta--error">
+                        <p><?= htmlspecialchars($error) ?></p>
+                    </div>
+                <?php endif; ?>
+
+                <?php if ($exito): ?>
+                    <div class="alerta alerta--exito">
+                        <p><?= htmlspecialchars($exito) ?></p>
+                    </div>
+                    <div class="acciones-secundarias">
+                        <a href="../index.php"><button class="boton boton--primario">Ir a iniciar sesión</button></a>
+                    </div>
+                <?php else: ?>
+                    <form action="procesoCrearUsuario.php" method="post" class="formulario">
+                        <div class="campo">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" required class="entrada"><br><br>
+                        </div>
+
+                        <div class="campo">
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" id="apellido" name="apellido" required class="entrada"><br><br>
+                        </div>
+
+                        <div class="campo">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="text" id="telefono" name="telefono" required class="entrada"><br><br>
+                        </div>
+
+                        <div class="campo">
+                            <label for="correo">Correo:</label>
+                            <input type="email" id="correo" name="correo" required class="entrada"><br><br>
+                        </div>
+
+                        <div class="campo">
+                            <label for="contrasena">Contraseña:</label>
+                            <input type="password" id="contrasena" name="contrasena" required class="entrada"><br><br>
+                        </div>
+
+                        <input type="submit" value="Crear cuenta" class="boton boton--primario transicion">
+                    </form>
+                <?php endif; ?>
+
+                <br>
+                <hr class="filete filete--secundario">
+                <div class="acciones-secundarias">
+                    <a href="../index.php" class="transicion"><button class="boton boton--secundario">Volver</button></a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

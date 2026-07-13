@@ -4,10 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalogo</title>
-    <link rel="stylesheet" href="../css/estilos.css">
+    <link rel="stylesheet" href="../assets/estilos.css">
 </head>
 <body>
-    <h1>lobby</h1>
-    <a href="../Login/CerrarSesion.php"><button>Cerrar Sesion</button></a>
+    <?php 
+        include 'menu.php';
+    ?>
+    <div class="contenido-publico">
+        <h1 class="contenido-publico__titulo">lobby</h1>
+    </div>
 </body>
 </html>

@@ -46,7 +46,6 @@ CREATE TABLE `usuarios` (
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `contrasena` (`contrasena`),
   ADD UNIQUE KEY `correo` (`correo`);
 
 --

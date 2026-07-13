@@ -1,0 +1,514 @@
+/* =========================================================
+   ObraDeArteH — Sistema de estilos
+   Paleta: #E85A0C (acento) · #C94A08 (acento oscuro)
+           #252525 (texto principal) · #444444 (texto secundario)
+           #F2F2F0 (fondo) · #D9D9D9 (bordes)
+   Concepto: cédula de museo — tarjeta recta, filete doble bajo
+   el título, marco de esquinas como elemento de firma.
+   ========================================================= */
+
+:root {
+    --color-acento: #E85A0C;
+    --color-acento-oscuro: #C94A08;
+    --color-texto: #252525;
+    --color-texto-secundario: #444444;
+    --color-fondo: #F2F2F0;
+    --color-superficie: #FFFFFF;
+    --color-borde: #D9D9D9;
+
+    --fuente-display: Georgia, 'Times New Roman', serif;
+    --fuente-cuerpo: -apple-system, "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-fondo);
+    font-family: var(--fuente-cuerpo);
+    color: var(--color-texto);
+}
+
+/* ---------- Contenedor de página ---------- */
+
+.pagina {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* ---------- Tarjeta / cédula ---------- */
+
+.tarjeta {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--color-superficie);
+    border: 1px solid var(--color-borde);
+    padding: 48px 40px 32px;
+}
+
+/* Marco de esquinas — elemento de firma */
+.tarjeta--marco::before,
+.tarjeta--marco::after {
+    content: "";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: var(--color-acento);
+    border-style: solid;
+}
+
+.tarjeta--marco::before {
+    top: -1px;
+    left: -1px;
+    border-width: 2px 0 0 2px;
+}
+
+.tarjeta--marco::after {
+    bottom: -1px;
+    right: -1px;
+    border-width: 0 2px 2px 0;
+}
+
+/* ---------- Encabezado ---------- */
+
+.tarjeta__encabezado {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.marca {
+    font-family: var(--fuente-display);
+    font-size: 1.9rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    margin: 0 0 18px;
+    color: var(--color-texto);
+}
+
+/* Filete doble — regla de catálogo */
+.filete {
+    border: none;
+    border-top: 1px solid var(--color-borde);
+    box-shadow: 0 3px 0 -2px var(--color-borde);
+    margin: 0 auto 20px;
+    width: 64px;
+}
+
+.filete--secundario {
+    width: 100%;
+    margin: 24px auto 20px;
+    box-shadow: none;
+    border-top: 1px solid var(--color-borde);
+}
+
+.titulo-seccion {
+    font-family: var(--fuente-display);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--color-texto-secundario);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+/* ---------- Cuerpo / formulario ---------- */
+
+.tarjeta__cuerpo {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.campo br {
+    display: none;
+}
+
+.campo label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-texto-secundario);
+    margin-bottom: 6px;
+}
+
+.entrada {
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.95rem;
+    color: var(--color-texto);
+    background-color: var(--color-fondo);
+    border: 1px solid var(--color-borde);
+    padding: 10px 12px;
+    width: 100%;
+    transition: border-color 0.15s ease;
+}
+
+.entrada:focus {
+    outline: none;
+    border-color: var(--color-acento);
+}
+
+/* ---------- Botones ---------- */
+
+.boton {
+    font-family: var(--fuente-cuerpo);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 12px 20px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.boton--primario {
+    background-color: var(--color-acento);
+    color: var(--color-superficie);
+}
+
+.boton--primario:hover {
+    background-color: var(--color-acento-oscuro);
+}
+
+.boton--secundario {
+    background-color: transparent;
+    color: var(--color-texto);
+    border-color: var(--color-borde);
+}
+
+.boton--secundario:hover {
+    border-color: var(--color-acento);
+    color: var(--color-acento-oscuro);
+}
+
+.acciones-secundarias {
+    text-align: center;
+}
+
+.acciones-secundarias br {
+    display: none;
+}
+
+/* ---------- Alertas (crear cuenta) ---------- */
+
+.alerta {
+    font-size: 0.85rem;
+    padding: 10px 14px;
+    border-left: 3px solid transparent;
+    margin: 0 0 20px;
+    background-color: var(--color-fondo);
+}
+
+.alerta--error {
+    border-left-color: var(--color-acento-oscuro);
+}
+
+.alerta--error p {
+    margin: 0;
+    color: var(--color-acento-oscuro) !important;
+}
+
+.alerta--exito {
+    border-left-color: var(--color-texto-secundario);
+}
+
+.alerta--exito p {
+    margin: 0;
+    color: var(--color-texto) !important;
+}
+
+/* ---------- Pie ---------- */
+
+.tarjeta__pie {
+    margin-top: 24px;
+    text-align: center;
+}
+
+.pie {
+    margin: 0;
+}
+
+.pie__texto {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-texto-secundario);
+    margin: 0;
+}
+
+/* =========================================================
+   Panel administrativo
+   ========================================================= */
+
+/* ---------- Barra de navegación ---------- */
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    background-color: var(--color-texto);
+    color: var(--color-fondo);
+    padding: 16px 32px;
+    border-bottom: 3px solid var(--color-acento);
+}
+
+.navbar__marca {
+    font-family: var(--fuente-display);
+    font-size: 1.3rem;
+    letter-spacing: 0.04em;
+}
+
+.navbar__enlaces {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar__enlace {
+    color: var(--color-fondo);
+    text-decoration: none;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding-bottom: 4px;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.navbar__enlace:hover,
+.navbar__enlace:focus-visible {
+    border-color: var(--color-acento);
+    color: var(--color-acento);
+}
+
+.navbar__enlace--salir {
+    color: var(--color-acento);
+}
+
+/* ---------- Contenedor de contenido admin ---------- */
+
+.contenido-admin,
+.contenido-publico {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 48px 24px;
+}
+
+.contenido-admin__encabezado,
+.contenido-publico__encabezado {
+    margin-bottom: 32px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-borde);
+}
+
+.contenido-admin__titulo,
+.contenido-publico__titulo {
+    font-family: var(--fuente-display);
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin: 0 0 8px;
+    color: var(--color-texto);
+}
+
+.contenido-admin__descripcion,
+.contenido-publico__descripcion {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--color-texto-secundario);
+}
+
+/* ---------- Enlace volver ---------- */
+
+.enlace-volver {
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-texto-secundario);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-borde);
+    padding-bottom: 2px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.enlace-volver:hover {
+    color: var(--color-acento-oscuro);
+    border-color: var(--color-acento-oscuro);
+}
+
+/* ---------- Tabla de usuarios ---------- */
+
+.tabla-contenedor {
+    overflow-x: auto;
+    border: 1px solid var(--color-borde);
+    background-color: var(--color-superficie);
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+}
+
+.tabla thead {
+    background-color: var(--color-fondo);
+}
+
+.tabla th,
+.tabla td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-borde);
+    white-space: nowrap;
+}
+
+.tabla th {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-texto-secundario);
+    font-weight: 600;
+}
+
+.tabla tbody tr:hover {
+    background-color: var(--color-fondo);
+}
+
+.tabla tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ---------- Insignia de rol ---------- */
+
+.insignia {
+    display: inline-block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
+    border: 1px solid var(--color-borde);
+    color: var(--color-texto-secundario);
+}
+
+.insignia--administrador {
+    border-color: var(--color-acento);
+    color: var(--color-acento-oscuro);
+}
+
+/* ---------- Acciones de fila ---------- */
+
+.acciones-fila {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.acciones-fila form {
+    margin: 0;
+}
+
+.boton--pequeno {
+    width: auto;
+    padding: 8px 14px;
+    font-size: 0.72rem;
+}
+
+.boton--peligro {
+    background-color: transparent;
+    border-color: var(--color-acento-oscuro);
+    color: var(--color-acento-oscuro);
+}
+
+.boton--peligro:hover {
+    background-color: var(--color-acento-oscuro);
+    color: var(--color-superficie);
+}
+
+/* ---------- Mensaje de confirmación ---------- */
+
+.mensaje-confirmacion {
+    max-width: 420px;
+    margin: 80px auto;
+    padding: 32px;
+    text-align: center;
+    background-color: var(--color-superficie);
+    border: 1px solid var(--color-borde);
+}
+
+.mensaje-confirmacion__texto {
+    margin: 0 0 16px;
+    color: var(--color-texto);
+    font-size: 0.95rem;
+}
+
+/* ---------- Responsivo ---------- */
+
+@media (max-width: 480px) {
+    .tarjeta {
+        padding: 36px 24px 24px;
+    }
+
+    .marca {
+        font-size: 1.6rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 20px;
+    }
+
+    .navbar__enlaces {
+        gap: 14px 20px;
+    }
+
+    .contenido-admin {
+        padding: 32px 16px;
+    }
+
+    .acciones-fila {
+        flex-direction: column;
+    }
+}
+
+/* ---------- Accesibilidad: foco visible ---------- */
+
+a:focus-visible,
+button:focus-visible,
+.entrada:focus-visible {
+    outline: 2px solid var(--color-acento);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .entrada,
+    .boton {
+        transition: none;
+    }
+}
