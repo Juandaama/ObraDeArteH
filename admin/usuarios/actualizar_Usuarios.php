@@ -65,8 +65,10 @@ if (!$usuario) {
 
                     <div class="campo">
                         <label for="rol">Rol("usuario" o "administrador"):</label>
-                        <input type="text" id="rol" name="rol"
-                               value="<?= htmlspecialchars($usuario['rol']) ?>" required class="entrada"><br><br>
+                        <select name="rol" id="rol" class="entrada">
+                            <option value="usuario" <?=$usuario['rol'] === 'usuario' ? 'selected': '' ?>>Usuario</option>
+                            <option value="administrador" <?=$usuario['rol'] === 'administrador' ? 'selected': '' ?>>Administrador</option>
+                        </select>
                     </div>
 
                     <button type="submit" class="boton boton--primario">Actualizar Usuario</button>
