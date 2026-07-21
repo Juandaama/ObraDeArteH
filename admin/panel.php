@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="../assets/estilos.css">
 </head>
 <body>
-    <?php 
-        include 'menuAdmin.php';
-    ?>
+        <?php 
+            include 'menuAdmin.php';
+        ?>
     <div class="contenido-admin">
         <div class="contenido-admin__encabezado">
             <h1 class="contenido-admin__titulo">Hola admin</h1>
