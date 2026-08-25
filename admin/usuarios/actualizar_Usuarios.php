@@ -64,7 +64,7 @@ if (!$usuario) {
                     </div>
 
                     <div class="campo">
-                        <label for="rol">Rol("usuario" o "administrador"):</label>
+                        <label for="rol">Rol:</label>
                         <select name="rol" id="rol" class="entrada">
                             <option value="usuario" <?=$usuario['rol'] === 'usuario' ? 'selected': '' ?>>Usuario</option>
                             <option value="administrador" <?=$usuario['rol'] === 'administrador' ? 'selected': '' ?>>Administrador</option>

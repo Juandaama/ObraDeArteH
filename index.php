@@ -26,7 +26,7 @@
                         <input type="password" id="contrasena" name="contrasena" class="entrada"><br><br>
                     </div>
 
-                    <input type="submit" value="Inisiarsesion" class="boton boton--primario"><br>
+                    <input type="submit" value="Iniciar sesion" class="boton boton--primario"><br>
                 </form>
                 <hr class="filete filete--secundario">
                 <div class="acciones-secundarias">
