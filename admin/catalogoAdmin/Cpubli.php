@@ -2,37 +2,48 @@
 
 require_once("../../DB/conexion.php");
 
+$mensaje = "";
+$tipoMensaje = "";
+
 if (isset($_POST['guardar'])) {
+
+    $nombre = $_POST['nombre'];
+    $precio = $_POST['precio'];
+    $descripcion = $_POST['descripcion'];
+    $categoria = $_POST['categoria'];
 
     $nombreImagen = $_FILES['imagen']['name'];
 
     $rutaTemporal = $_FILES['imagen']['tmp_name'];
 
-    $rutaDestino = "../../img/catalogo/" . $nombreImagen;
+    // Carpeta correspondiente a la categoría
+    $rutaDestino = "../../img/catalogo/" . $categoria . "/" . $nombreImagen;
 
     if (move_uploaded_file($rutaTemporal, $rutaDestino)) {
 
-        $descripcion = $_POST['descripcion'];
+        // Ruta que se guardará en la base de datos
+        $rutaImagen = "img/catalogo/" . $categoria . "/" . $nombreImagen;
 
-        $sql = "INSERT INTO catalogo (nombre_imagen, descripcion)
-                VALUES (:nombre_imagen, :descripcion)";
+        $sql = "INSERT INTO catalogo (descripcion, nombre, precio, categoria, ruta_imagen)
+                VALUES (:descripcion, :nombre, :precio, :categoria, :ruta_imagen)";
 
         $stmt = $pdo->prepare($sql);
 
         $stmt->execute([
-            ':nombre_imagen' => $nombreImagen,
-            ':descripcion' => $descripcion
+            ':descripcion' => $descripcion,
+            ':nombre' => $nombre,
+            ':precio' => $precio,
+            ':categoria' => $categoria,
+            ':ruta_imagen' => $rutaImagen
         ]);
 
-        echo "Publicación creada correctamente.";
+        $mensaje = "Publicación creada correctamente.";
+        $tipoMensaje = "exito";
 
     } else {
 
-        echo "Error al guardar la imagen.";
-
-        header("Location: Rpubli.php");
-        exit;
-
+        $mensaje = "Error al guardar la imagen.";
+        $tipoMensaje = "error";
     }
 }
 
@@ -40,33 +51,146 @@ if (isset($_POST['guardar'])) {
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Crear publicación</title>
+
     <link rel="stylesheet" href="../../assets/estilos.css">
 </head>
 
 <body>
 
-    <h1>Crear publicación</h1>
+    <div class="pagina">
 
-    <form action="" method="POST" enctype="multipart/form-data">
+        <div class="tarjeta tarjeta--marco">
 
-        <label>Seleccione una imagen:</label><br>
+            <a href="Rpubli.php" class="enlace-volver">Volver</a>
 
-        <input type="file" name="imagen" required>
+            <div class="tarjeta__encabezado">
 
-        <br><br>
+                <h1 class="marca">Obra de Arte</h1>
 
-        <label>Descripción:</label><br>
+                <hr class="filete">
 
-        <textarea name="descripcion" rows="5" cols="50" required></textarea>
+                <h2 class="titulo-seccion">Crear publicación</h2>
 
-        <br><br>
+            </div>
 
-        <input type="submit" name="guardar" value="Guardar publicación">
+            <div class="tarjeta__cuerpo">
 
-    </form>
+                <?php if ($mensaje): ?>
+
+                    <div class="alerta alerta--<?= $tipoMensaje ?>">
+                        <p><?= htmlspecialchars($mensaje) ?></p>
+                    </div>
+
+                <?php endif; ?>
+
+
+                <form action="" method="POST" enctype="multipart/form-data" class="formulario">
+
+                    <div class="campo">
+
+                        <label for="nombre">Nombre:</label>
+
+                        <input
+                            type="text"
+                            id="nombre"
+                            name="nombre"
+                            required
+                            class="entrada"
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="precio">Precio:</label>
+
+                        <input
+                            type="text"
+                            id="precio"
+                            name="precio"
+                            required
+                            class="entrada"
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="categoria">Categoría:</label>
+
+                        <select
+                            id="categoria"
+                            name="categoria"
+                            required
+                            class="entrada"
+                        >
+
+                            <option value="">Seleccione una categoría</option>
+
+                            <option value="cocina">Cocina</option>
+                            <option value="habitacion">Habitación</option>
+                            <option value="patio">Patio</option>
+                            <option value="sala">Sala</option>
+                            <option value="baño">Baño</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="imagen">Seleccione una imagen:</label>
+
+                        <input
+                            type="file"
+                            id="imagen"
+                            name="imagen"
+                            required
+                            class="entrada"
+                        >
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="descripcion">Descripción:</label>
+
+                        <textarea
+                            id="descripcion"
+                            name="descripcion"
+                            rows="5"
+                            required
+                            class="entrada"
+                        ></textarea>
+
+                    </div>
+
+
+                    <input
+                        type="submit"
+                        name="guardar"
+                        value="Guardar publicación"
+                        class="boton boton--primario"
+                    >
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </body>
+
 </html>

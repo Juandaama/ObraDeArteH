@@ -24,6 +24,10 @@
     box-sizing: border-box;
 }
 
+a {
+    text-decoration: none;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -165,9 +169,20 @@ body {
     border-color: var(--color-acento);
 }
 
+textarea.entrada {
+    resize: vertical;
+    min-height: 100px;
+}
+
 /* ---------- Botones ---------- */
 
+.boton,
+a.boton 
 .boton {
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
     font-family: var(--fuente-cuerpo);
     font-size: 0.85rem;
     text-transform: uppercase;
@@ -177,6 +192,24 @@ body {
     cursor: pointer;
     width: 100%;
     transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.boton:hover,
+.boton:focus,
+.boton:active,
+.boton:visited,
+a.boton:hover,
+a.boton:focus,
+a.boton:active,
+a.boton:visited {
+    text-decoration: none;
+}
+
+.boton--inline 
+.boton--inline,
+a.boton--inline {
+    width: auto;
+    display: inline-block;
 }
 
 .boton--primario {
@@ -423,15 +456,29 @@ body {
 
 .acciones-fila {
     display: flex;
+    flex-direction: row;
+    align-items: center;
     gap: 8px;
     flex-wrap: wrap;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
 .acciones-fila form {
     margin: 0;
+    display: inline-block;
+    display: inline-flex;
 }
 
-.boton--pequeno {
+.boton--pequeno 
+.acciones-fila .boton,
+.acciones-fila a.boton {
+    width: auto;
+    white-space: nowrap;
+}
+
+.boton--pequeno,
+a.boton--pequeno {
     width: auto;
     padding: 8px 14px;
     font-size: 0.72rem;
@@ -511,4 +558,4 @@ button:focus-visible,
     .boton {
         transition: none;
     }
-}
+} 
