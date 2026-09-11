@@ -1,5 +1,7 @@
 <nav class="navbar">
-        <span class="navbar__marca">Obra de Arte</span>
+    <span class="navbar__marca">
+        <img src="../img/Logo.PNG" alt="Obra de Arte Arquitectura" class="navbar__logo">
+    </span>
     <ul class="navbar__enlaces">
         <li><a href="catalogoAdmin/Rpubli.php" class="navbar__enlace">Catálogo</a></li>
         <li><a href="" class="navbar__enlace">Mi perfil</a></li>

@@ -253,6 +253,7 @@ if (isset($_POST['actualizar'])) {
                     method="POST"
                     enctype="multipart/form-data"
                     class="formulario"
+                    id="form-actualizar-publi"
                 >
 
 
@@ -367,13 +368,14 @@ if (isset($_POST['actualizar'])) {
 
                     </div>
 
-
-                    <input
-                        type="submit"
+                    <input type="hidden" name="actualizar" value="1">
+                    <button
+                        type="button"
                         class="boton boton--primario"
-                        name="actualizar"
-                        value="Guardar cambios"
+                        onclick="validarYPedirConfirmacion()"
                     >
+                        Guardar cambios
+                    </button>
 
                 </form>
 
@@ -383,6 +385,41 @@ if (isset($_POST['actualizar'])) {
 
     </div>
 
+    <!-- Modal de Confirmación -->
+    <div class="modal-overlay" id="modalConfirmacion">
+        <div class="modal-caja tarjeta tarjeta--marco">
+            <p class="modal-mensaje">¿Seguro de que quieres editar esta publicación?</p>
+            <div class="modal-acciones">
+                <button type="button" class="boton boton--secundario boton--pequeno" onclick="cerrarModal()">Cancelar</button>
+                <button type="button" class="boton boton--peligro boton--pequeno" id="btnModalConfirmar">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validarYPedirConfirmacion() {
+            const form = document.getElementById('form-actualizar-publi');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            document.getElementById('modalConfirmacion').classList.add('modal-overlay--activo');
+        }
+
+        function cerrarModal() {
+            document.getElementById('modalConfirmacion').classList.remove('modal-overlay--activo');
+        }
+
+        document.getElementById('btnModalConfirmar').addEventListener('click', function() {
+            document.getElementById('form-actualizar-publi').submit();
+        });
+
+        document.getElementById('modalConfirmacion').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarModal();
+            }
+        });
+    </script>
 </body>
 
 </html>

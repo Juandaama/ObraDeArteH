@@ -36,7 +36,7 @@ if (!$usuario) {
                 <h2 class="titulo-seccion">Editar Usuario</h2>
             </div>
             <div class="tarjeta__cuerpo">
-                <form action="proceso_Actualizar_Usuario.php" method="POST" class="formulario">
+                <form action="proceso_Actualizar_Usuario.php" method="POST" class="formulario" id="form-actualizar-usuario">
                     <input type="hidden" name="id" value="<?= htmlspecialchars($id) ?>">
 
                     <div class="campo">
@@ -71,10 +71,46 @@ if (!$usuario) {
                         </select>
                     </div>
 
-                    <button type="submit" class="boton boton--primario">Actualizar Usuario</button>
+                    <button type="button" class="boton boton--primario" onclick="validarYPedirConfirmacion()">Actualizar Usuario</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <!-- Modal de Confirmación -->
+    <div class="modal-overlay" id="modalConfirmacion">
+        <div class="modal-caja tarjeta tarjeta--marco">
+            <p class="modal-mensaje">¿Seguro de que quieres editar este usuario?</p>
+            <div class="modal-acciones">
+                <button type="button" class="boton boton--secundario boton--pequeno" onclick="cerrarModal()">Cancelar</button>
+                <button type="button" class="boton boton--peligro boton--pequeno" id="btnModalConfirmar">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function validarYPedirConfirmacion() {
+            const form = document.getElementById('form-actualizar-usuario');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            document.getElementById('modalConfirmacion').classList.add('modal-overlay--activo');
+        }
+
+        function cerrarModal() {
+            document.getElementById('modalConfirmacion').classList.remove('modal-overlay--activo');
+        }
+
+        document.getElementById('btnModalConfirmar').addEventListener('click', function() {
+            document.getElementById('form-actualizar-usuario').submit();
+        });
+
+        document.getElementById('modalConfirmacion').addEventListener('click', function(e) {
+            if (e.target === this) {
+                cerrarModal();
+            }
+        });
+    </script>
 </body>
 </html>

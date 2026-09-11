@@ -1,8 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
 /* =========================================================
    ObraDeArteH — Sistema de estilos
-   Paleta: #E85A0C (acento) · #C94A08 (acento oscuro)
-           #252525 (texto principal) · #444444 (texto secundario)
-           #F2F2F0 (fondo) · #D9D9D9 (bordes)
+   Paleta: #E85A0C (Naranja principal) · #C94A08 (Naranja oscuro)
+           #252525 (Negro carbón) · #444444 (Gris grafito)
+           #F2F2F0 (Blanco concreto) · #D9D9D9 (Gris claro)
+   Tipografía:
+           Títulos:    Montserrat Bold (700)
+           Subtítulos: Montserrat SemiBold (600)
+           Texto:      Poppins Regular (400)
    Concepto: cédula de museo — tarjeta recta, filete doble bajo
    el título, marco de esquinas como elemento de firma.
    ========================================================= */
@@ -16,8 +22,11 @@
     --color-superficie: #FFFFFF;
     --color-borde: #D9D9D9;
 
-    --fuente-display: Georgia, 'Times New Roman', serif;
-    --fuente-cuerpo: -apple-system, "Segoe UI", system-ui, sans-serif;
+    /* Tipografías oficiales según manual de marca */
+    --fuente-titulo: 'Montserrat', sans-serif;
+    --fuente-subtitulo: 'Montserrat', sans-serif;
+    --fuente-cuerpo: 'Poppins', sans-serif;
+    --fuente-display: 'Montserrat', sans-serif;
 }
 
 * {
@@ -33,7 +42,19 @@ body {
     padding: 0;
     background-color: var(--color-fondo);
     font-family: var(--fuente-cuerpo);
+    font-weight: 400;
     color: var(--color-texto);
+}
+
+/* Headings base */
+h1 {
+    font-family: var(--fuente-titulo);
+    font-weight: 700;
+}
+
+h2, h3, h4, h5, h6 {
+    font-family: var(--fuente-subtitulo);
+    font-weight: 600;
 }
 
 /* ---------- Contenedor de página ---------- */
@@ -88,12 +109,28 @@ body {
 }
 
 .marca {
-    font-family: var(--fuente-display);
-    font-size: 1.9rem;
-    font-weight: 400;
-    letter-spacing: 0.04em;
+    font-family: var(--fuente-titulo);
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
     margin: 0 0 18px;
     color: var(--color-texto);
+}
+
+.marca-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 16px;
+}
+
+.marca-logo__imagen {
+    max-height: 75px;
+    max-width: 220px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
 }
 
 /* Filete doble — regla de catálogo */
@@ -113,9 +150,9 @@ body {
 }
 
 .titulo-seccion {
-    font-family: var(--fuente-display);
+    font-family: var(--fuente-subtitulo);
     font-size: 1.05rem;
-    font-weight: 400;
+    font-weight: 600;
     color: var(--color-texto-secundario);
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -146,6 +183,8 @@ body {
 }
 
 .campo label {
+    font-family: var(--fuente-subtitulo);
+    font-weight: 600;
     font-size: 0.78rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -155,6 +194,7 @@ body {
 
 .entrada {
     font-family: var(--fuente-cuerpo);
+    font-weight: 400;
     font-size: 0.95rem;
     color: var(--color-texto);
     background-color: var(--color-fondo);
@@ -177,13 +217,13 @@ textarea.entrada {
 /* ---------- Botones ---------- */
 
 .boton,
-a.boton 
-.boton {
+a.boton {
     display: inline-block;
     box-sizing: border-box;
     text-align: center;
     text-decoration: none;
-    font-family: var(--fuente-cuerpo);
+    font-family: var(--fuente-subtitulo);
+    font-weight: 600;
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
@@ -205,7 +245,6 @@ a.boton:visited {
     text-decoration: none;
 }
 
-.boton--inline 
 .boton--inline,
 a.boton--inline {
     width: auto;
@@ -243,6 +282,8 @@ a.boton--inline {
 /* ---------- Alertas (crear cuenta) ---------- */
 
 .alerta {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 400;
     font-size: 0.85rem;
     padding: 10px 14px;
     border-left: 3px solid transparent;
@@ -255,6 +296,7 @@ a.boton--inline {
 }
 
 .alerta--error p {
+    font-family: var(--fuente-cuerpo);
     margin: 0;
     color: var(--color-acento-oscuro) !important;
 }
@@ -264,6 +306,7 @@ a.boton--inline {
 }
 
 .alerta--exito p {
+    font-family: var(--fuente-cuerpo);
     margin: 0;
     color: var(--color-texto) !important;
 }
@@ -280,6 +323,8 @@ a.boton--inline {
 }
 
 .pie__texto {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 400;
     font-size: 0.75rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -301,26 +346,41 @@ a.boton--inline {
     gap: 16px;
     background-color: var(--color-texto);
     color: var(--color-fondo);
-    padding: 16px 32px;
+    padding: 12px 32px;
     border-bottom: 3px solid var(--color-acento);
 }
 
 .navbar__marca {
-    font-family: var(--fuente-display);
-    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    font-family: var(--fuente-subtitulo);
+    font-weight: 600;
+    font-size: 1.25rem;
     letter-spacing: 0.04em;
+}
+
+.navbar__logo {
+    max-height: 42px;
+    max-width: 140px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
 }
 
 .navbar__enlaces {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 24px;
     margin: 0;
     padding: 0;
 }
 
 .navbar__enlace {
+    font-family: var(--fuente-subtitulo);
+    font-weight: 600;
     color: var(--color-fondo);
     text-decoration: none;
     font-size: 0.8rem;
@@ -359,15 +419,17 @@ a.boton--inline {
 
 .contenido-admin__titulo,
 .contenido-publico__titulo {
-    font-family: var(--fuente-display);
+    font-family: var(--fuente-titulo);
+    font-weight: 700;
     font-size: 1.6rem;
-    font-weight: 400;
     margin: 0 0 8px;
     color: var(--color-texto);
 }
 
 .contenido-admin__descripcion,
 .contenido-publico__descripcion {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 400;
     margin: 0;
     font-size: 0.95rem;
     color: var(--color-texto-secundario);
@@ -378,6 +440,8 @@ a.boton--inline {
 .enlace-volver {
     display: inline-block;
     margin-bottom: 20px;
+    font-family: var(--fuente-subtitulo);
+    font-weight: 600;
     font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
@@ -420,11 +484,17 @@ a.boton--inline {
 }
 
 .tabla th {
+    font-family: var(--fuente-subtitulo);
+    font-weight: 600;
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--color-texto-secundario);
-    font-weight: 600;
+}
+
+.tabla td {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 400;
 }
 
 .tabla tbody tr:hover {
@@ -439,6 +509,8 @@ a.boton--inline {
 
 .insignia {
     display: inline-block;
+    font-family: var(--fuente-subtitulo);
+    font-weight: 600;
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
@@ -459,18 +531,14 @@ a.boton--inline {
     flex-direction: row;
     align-items: center;
     gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
     flex-wrap: nowrap;
 }
 
 .acciones-fila form {
     margin: 0;
-    display: inline-block;
     display: inline-flex;
 }
 
-.boton--pequeno 
 .acciones-fila .boton,
 .acciones-fila a.boton {
     width: auto;
@@ -507,6 +575,8 @@ a.boton--pequeno {
 }
 
 .mensaje-confirmacion__texto {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 400;
     margin: 0 0 16px;
     color: var(--color-texto);
     font-size: 0.95rem;
@@ -520,7 +590,11 @@ a.boton--pequeno {
     }
 
     .marca {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
+    }
+
+    .marca-logo__imagen {
+        max-height: 60px;
     }
 }
 
@@ -538,9 +612,302 @@ a.boton--pequeno {
     .contenido-admin {
         padding: 32px 16px;
     }
+}
 
-    .acciones-fila {
-        flex-direction: column;
+/* =========================================================
+   Página de inicio (Login + Carrusel Informativo)
+   ========================================================= */
+
+.pagina--inicio {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 24px;
+    box-sizing: border-box;
+}
+
+.contenedor-inicio {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 36px;
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+    align-items: stretch;
+}
+
+.contenedor-inicio__login {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.contenedor-inicio__login .tarjeta {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.contenedor-inicio__info {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    background-color: var(--color-superficie);
+    border: 1px solid var(--color-borde);
+    padding: 36px 32px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* ---------- Carrusel de imágenes ---------- */
+
+.carrusel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border: 1px solid var(--color-borde);
+    background-color: var(--color-fondo);
+    margin-bottom: 14px;
+}
+
+.carrusel__pistas {
+    display: flex;
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1);
+    width: 100%;
+}
+
+.carrusel__slide {
+    min-width: 100%;
+    position: relative;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1a1a;
+}
+
+.carrusel__imagen {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.35s ease-in-out;
+}
+
+.carrusel__etiqueta {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(20, 20, 20, 0.88));
+    color: #FFFFFF;
+    padding: 24px 16px 10px;
+    font-family: var(--fuente-subtitulo);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.carrusel__boton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(37, 37, 37, 0.65);
+    color: #FFFFFF;
+    border: none;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+    z-index: 3;
+    padding: 0;
+}
+
+.carrusel__boton:hover {
+    background-color: var(--color-acento);
+}
+
+.carrusel__boton--anterior {
+    left: 8px;
+}
+
+.carrusel__boton--siguiente {
+    right: 8px;
+}
+
+.carrusel__indicadores {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.carrusel__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--color-borde);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.carrusel__dot--activo {
+    background-color: var(--color-acento);
+    transform: scale(1.25);
+}
+
+/* ---------- Sección informativa ---------- */
+
+.info-destacada__encabezado {
+    margin-bottom: 14px;
+}
+
+.info-destacada__titulo {
+    font-family: var(--fuente-titulo);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--color-texto);
+    margin: 0 0 6px;
+    letter-spacing: 0.02em;
+}
+
+.info-destacada__lema {
+    font-family: var(--fuente-subtitulo);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--color-acento);
+    display: inline-block;
+    margin-bottom: 4px;
+}
+
+.info-destacada__descripcion {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 400;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--color-texto-secundario);
+    margin: 0 0 14px;
+}
+
+.info-destacada__servicios {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--color-borde);
+}
+
+.info-destacada__servicio {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-family: var(--fuente-cuerpo);
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: var(--color-texto);
+    letter-spacing: 0.02em;
+}
+
+.info-destacada__icono {
+    color: var(--color-acento);
+    font-size: 0.9rem;
+    line-height: 1;
+}
+
+/* =========================================================
+   Ventana Modal de Confirmación
+   ========================================================= */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(37, 37, 37, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.modal-overlay--activo {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-caja {
+    background-color: var(--color-superficie);
+    border: 1px solid var(--color-borde);
+    padding: 36px 32px 28px;
+    max-width: 440px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.2s ease;
+}
+
+.modal-overlay--activo .modal-caja {
+    transform: scale(1);
+}
+
+.modal-mensaje {
+    font-family: var(--fuente-cuerpo);
+    font-weight: 400;
+    font-size: 1.05rem;
+    color: var(--color-texto);
+    margin: 0 0 24px;
+    line-height: 1.5;
+}
+
+.modal-acciones {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.modal-acciones .boton {
+    min-width: 110px;
+    width: auto;
+}
+
+/* Responsive para página de inicio */
+@media (max-width: 860px) {
+    .contenedor-inicio {
+        grid-template-columns: 1fr;
+        max-width: 460px;
+        gap: 28px;
+    }
+
+    .contenedor-inicio__login,
+    .contenedor-inicio__info {
+        width: 100%;
+        max-width: 100%;
     }
 }
 
@@ -555,7 +922,8 @@ button:focus-visible,
 
 @media (prefers-reduced-motion: reduce) {
     .entrada,
-    .boton {
+    .boton,
+    .carrusel__pistas {
         transition: none;
     }
 } 
