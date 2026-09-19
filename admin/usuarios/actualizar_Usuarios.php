@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("../../DB/conexion.php");
 
 if (!isset($_POST['id']) || empty($_POST['id']) || !is_numeric($_POST['id'])) {
@@ -12,26 +13,29 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute([$id]);
 $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
 if (!$usuario) {
     die("Usuario no encontrado.");
 }
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Usuario</title>
+    <title>Editar Usuario - ObraDeArteH</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/estilos.css">
 </head>
 <body>
     <div class="pagina">
         <div class="tarjeta tarjeta--marco">
-            <a href="administracion_Usuarios.php" class="enlace-volver">Volver</a>
+            <a href="administracion_Usuarios.php" class="enlace-volver">&larr; Volver a la lista</a>
             <div class="tarjeta__encabezado">
-                <h1 class="marca">Obra de Arte</h1>
+                <div class="marca-logo">
+                    <img src="../../img/Logo.PNG" alt="Obra de Arte Arquitectura" class="marca-logo__imagen">
+                </div>
                 <hr class="filete">
                 <h2 class="titulo-seccion">Editar Usuario</h2>
             </div>
@@ -42,25 +46,29 @@ if (!$usuario) {
                     <div class="campo">
                         <label for="nombre">Nombre:</label>
                         <input type="text" id="nombre" name="nombre"
-                               value="<?= htmlspecialchars($usuario['nombre']) ?>" required class="entrada"><br><br>
+                               value="<?= htmlspecialchars($usuario['nombre']) ?>" required class="entrada" placeholder="Nombre del usuario">
                     </div>
 
                     <div class="campo">
                         <label for="apellido">Apellido:</label>
                         <input type="text" id="apellido" name="apellido"
-                               value="<?= htmlspecialchars($usuario['apellido']) ?>" required class="entrada"><br><br>
+                               value="<?= htmlspecialchars($usuario['apellido']) ?>" required class="entrada" placeholder="Apellido del usuario">
                     </div>
 
                     <div class="campo">
-                        <label for="telefono">Telefono:</label>
-                        <input type="text" id="telefono" name="telefono"
-                               value="<?= htmlspecialchars($usuario['telefono']) ?>" required class="entrada"><br><br>
+                        <label for="telefono">Teléfono (Solo números):</label>
+                        <input type="tel" id="telefono" name="telefono"
+                               value="<?= htmlspecialchars($usuario['telefono']) ?>" required class="entrada"
+                               inputmode="numeric" pattern="[0-9]{7,15}" title="Ingresa un número telefónico de 7 a 15 dígitos sin letras"
+                               oninput="this.value = this.value.replace(/[^0-9]/g, '')" placeholder="Ej: 3113875849">
                     </div>
 
                     <div class="campo">
-                        <label for="correo">Correo:</label>
+                        <label for="correo">Correo electrónico:</label>
                         <input type="email" id="correo" name="correo"
-                               value="<?= htmlspecialchars($usuario['correo']) ?>" required class="entrada"><br><br>
+                               value="<?= htmlspecialchars($usuario['correo']) ?>" required class="entrada"
+                               pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                               title="Ingresa un correo válido con dominio completo (ej: usuario@gmail.com)" placeholder="ejemplo@gmail.com">
                     </div>
 
                     <div class="campo">
@@ -71,8 +79,15 @@ if (!$usuario) {
                         </select>
                     </div>
 
-                    <button type="button" class="boton boton--primario" onclick="validarYPedirConfirmacion()">Actualizar Usuario</button>
+                    <button type="button" class="boton boton--primario" onclick="validarYPedirConfirmacion()">Guardar Cambios</button>
                 </form>
+
+                <hr class="filete filete--secundario">
+                <div class="tarjeta__pie">
+                    <footer class="pie">
+                        <p class="pie__texto">ObraDeArteH &bull; Remodelación y Diseño</p>
+                    </footer>
+                </div>
             </div>
         </div>
     </div>
@@ -80,7 +95,7 @@ if (!$usuario) {
     <!-- Modal de Confirmación -->
     <div class="modal-overlay" id="modalConfirmacion">
         <div class="modal-caja tarjeta tarjeta--marco">
-            <p class="modal-mensaje">¿Seguro de que quieres editar este usuario?</p>
+            <p class="modal-mensaje">¿Confirmas que deseas guardar los cambios de este usuario?</p>
             <div class="modal-acciones">
                 <button type="button" class="boton boton--secundario boton--pequeno" onclick="cerrarModal()">Cancelar</button>
                 <button type="button" class="boton boton--peligro boton--pequeno" id="btnModalConfirmar">Confirmar</button>
@@ -95,6 +110,21 @@ if (!$usuario) {
                 form.reportValidity();
                 return;
             }
+
+            const tel = document.getElementById('telefono');
+            if (tel && !/^[0-9]{7,15}$/.test(tel.value.trim())) {
+                alert('El teléfono debe contener únicamente números (entre 7 y 15 dígitos).');
+                tel.focus();
+                return;
+            }
+
+            const correo = document.getElementById('correo');
+            if (correo && !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(correo.value.trim())) {
+                alert('Ingresa un correo electrónico válido con dominio completo (ej: usuario@gmail.com).');
+                correo.focus();
+                return;
+            }
+
             document.getElementById('modalConfirmacion').classList.add('modal-overlay--activo');
         }
 
