@@ -43,6 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
 
         $estadosPermitidos = ['Pendiente', 'En revisión', 'Aprobada', 'Rechazada'];
         if (in_array($nuevoEstado, $estadosPermitidos) && $idCotizacion > 0) {
+            $stmtConsulta = $pdo->prepare("SELECT * FROM cotizaciones WHERE id_cotizacion = ? LIMIT 1");
+            $stmtConsulta->execute([$idCotizacion]);
+            $cotizacionActual = $stmtConsulta->fetch(PDO::FETCH_ASSOC);
+
             $stmt = $pdo->prepare("
                 UPDATE cotizaciones 
                 SET estado = :estado, respuesta_admin = :respuesta 
@@ -55,6 +59,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion'])) {
             ]);
             $mensaje = 'Cotización #' . $idCotizacion . ' actualizada correctamente.';
             $tipoMensaje = 'exito';
+
+            if ($cotizacionActual) {
+                $estadoAnterior    = $cotizacionActual['estado'];
+                $respuestaAnterior = $cotizacionActual['respuesta_admin'] ?? '';
+                $cambioEstado      = ($estadoAnterior !== $nuevoEstado);
+                $cambioRespuesta   = ($respuestaAdmin !== $respuestaAnterior);
+
+                if ($cambioEstado || $cambioRespuesta) {
+                    require_once __DIR__ . '/../../servicios/correo_servicio.php';
+
+                    $destinatarioCorreo = trim($cotizacionActual['correo_cliente'] ?? '');
+                    $destinatarioNombre = trim($cotizacionActual['nombre_cliente'] ?? '');
+
+                    if (!empty($cotizacionActual['id_usuario'])) {
+                        $stmtUsr = $pdo->prepare("SELECT nombre, apellido, correo FROM usuarios WHERE id = ? LIMIT 1");
+                        $stmtUsr->execute([$cotizacionActual['id_usuario']]);
+                        $usr = $stmtUsr->fetch(PDO::FETCH_ASSOC);
+                        if ($usr) {
+                            if (empty($destinatarioCorreo)) {
+                                $destinatarioCorreo = trim($usr['correo']);
+                            }
+                            if (empty($destinatarioNombre)) {
+                                $destinatarioNombre = trim($usr['nombre'] . ' ' . $usr['apellido']);
+                            }
+                        }
+                    }
+
+                    $resEnvio = enviarNotificacionEstadoCotizacion([
+                        'id_cotizacion'       => $idCotizacion,
+                        'nombre_cliente'      => $destinatarioNombre,
+                        'correo_cliente'      => $destinatarioCorreo,
+                        'nuevo_estado'        => $nuevoEstado,
+                        'estado_anterior'     => $estadoAnterior,
+                        'respuesta_admin'     => $respuestaAdmin,
+                        'categoria'           => $cotizacionActual['categoria'],
+                        'nombre_proyecto_ref' => $cotizacionActual['nombre_proyecto_ref'],
+                        'presupuesto'         => $cotizacionActual['presupuesto_estimado'],
+                        'detalles'            => $cotizacionActual['detalles'],
+                        'fecha_creacion'      => $cotizacionActual['fecha_creacion']
+                    ]);
+
+                    if ($resEnvio['exito']) {
+                        $mensaje .= ' Notificación por correo enviada con éxito a ' . htmlspecialchars($destinatarioCorreo) . '.';
+                    } else {
+                        $mensaje .= ' La cotización se actualizó, pero no se pudo enviar el correo a ' . htmlspecialchars($destinatarioCorreo) . '. (' . htmlspecialchars($resEnvio['mensaje']) . ').';
+                        $tipoMensaje = 'advertencia';
+                    }
+                }
+            }
         }
     } elseif ($_POST['accion'] === 'eliminar') {
         $idCotizacion = (int)($_POST['id_cotizacion'] ?? 0);
@@ -113,9 +166,16 @@ $totalRechazadas  = $pdo->query("SELECT COUNT(*) FROM cotizaciones WHERE estado 
     <div class="contenido-admin">
         <a href="../panel.php" class="enlace-volver">Volver al Panel</a>
 
-        <div class="contenido-admin__encabezado">
-            <h1 class="contenido-admin__titulo">Gestión de Cotizaciones</h1>
-            <p class="contenido-admin__descripcion">Revisa, responde y administra las solicitudes de remodelación recibidas</p>
+        <div class="contenido-admin__encabezado" style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;">
+            <div>
+                <h1 class="contenido-admin__titulo">Gestión de Cotizaciones</h1>
+                <p class="contenido-admin__descripcion">Revisa, responde y administra las solicitudes de remodelación recibidas</p>
+            </div>
+            <div>
+                <a href="../../servicios/probar_conexion.php" class="boton boton--secundario boton--pequeno" style="display: inline-flex; align-items: center; gap: 6px;">
+                    &#9993; Diagnóstico de Correo
+                </a>
+            </div>
         </div>
 
         <?php if ($mensaje): ?>

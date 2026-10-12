@@ -1,7 +1,39 @@
 <?php
-require_once '../../DB/conexion.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../../DB/conexion.php';
 
-$usuarios = $pdo->query('SELECT id, nombre, apellido, edad, telefono, correo , rol FROM usuarios ORDER BY id DESC')->fetchAll();
+try {
+    $pdo->exec("
+        CREATE TABLE IF NOT EXISTS `cotizaciones` (
+          `id_cotizacion` int(11) NOT NULL AUTO_INCREMENT,
+          `id_usuario` int(11) DEFAULT NULL,
+          `nombre_cliente` varchar(200) NOT NULL,
+          `correo_cliente` varchar(200) NOT NULL,
+          `telefono_cliente` varchar(50) NOT NULL,
+          `categoria` varchar(100) NOT NULL,
+          `id_imagen_ref` int(11) DEFAULT NULL,
+          `nombre_proyecto_ref` varchar(250) DEFAULT NULL,
+          `presupuesto_estimado` varchar(100) DEFAULT NULL,
+          `detalles` text NOT NULL,
+          `estado` enum('Pendiente','En revisión','Aprobada','Rechazada') NOT NULL DEFAULT 'Pendiente',
+          `respuesta_admin` text DEFAULT NULL,
+          `fecha_creacion` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (`id_cotizacion`),
+          KEY `idx_usuario` (`id_usuario`),
+          KEY `idx_estado` (`estado`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+    ");
+} catch (Exception $e) {
+}
+
+$usuarios = $pdo->query('
+    SELECT u.id, u.nombre, u.apellido, u.edad, u.telefono, u.correo, u.rol,
+           (SELECT COUNT(*) FROM cotizaciones c WHERE c.id_usuario = u.id OR (c.id_usuario IS NULL AND c.correo_cliente = u.correo)) AS total_cotizaciones
+    FROM usuarios u 
+    ORDER BY u.id DESC
+')->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -9,14 +41,18 @@ $usuarios = $pdo->query('SELECT id, nombre, apellido, edad, telefono, correo , r
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administración Usuarios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Poppins:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../assets/estilos.css">
+    <link rel="stylesheet" href="../../assets/estilos_adicionales.css">
 </head>
 <body>
     <div class="contenido-admin">
         <a href="../panel.php" class="enlace-volver">Volver</a>
         <div class="contenido-admin__encabezado">
             <h1 class="contenido-admin__titulo">Administración Usuarios</h1>
-            <p class="contenido-admin__descripcion">Gestiona las cuentas del sistema</p>
+            <p class="contenido-admin__descripcion">Gestiona las cuentas del sistema y consulta sus solicitudes de cotización</p>
         </div>
         <div class="tabla-contenedor">
             <table class="tabla">
@@ -55,6 +91,13 @@ $usuarios = $pdo->query('SELECT id, nombre, apellido, edad, telefono, correo , r
                                 </td>
                                 <td>
                                     <div class="acciones-fila">
+                                        <a
+                                            href="cotizaciones_usuario.php?id=<?= $u['id'] ?>"
+                                            class="boton boton--primario boton--pequeno"
+                                            title="Ver cotizaciones de <?= htmlspecialchars($u['nombre']) ?>"
+                                        >
+                                            Cotizaciones<?= (isset($u['total_cotizaciones']) && $u['total_cotizaciones'] > 0) ? ' (' . $u['total_cotizaciones'] . ')' : '' ?>
+                                        </a>
                                         <form action="actualizar_Usuarios.php" method="post">
                                             <input type="hidden" name="id" value="<?= $u['id'] ?>">
                                             <input

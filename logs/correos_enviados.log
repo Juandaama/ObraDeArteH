@@ -1,0 +1,18 @@
+[2026-10-12 22:02:52] Destinatario: juandavidamarilesrincon@gmail.com (al alal) | Asunto: Actualización de Cotización #1 - Obra de Arte H | Estado: REGISTRADO_LOCAL | Detalle: No se pudo despachar el correo (servidor local sin servidor SMTP activo). Se ha registrado la notificación en el sistema.
+[2026-10-12 22:06:37] Destinatario: juandavidamarilesrincon@gmail.com (al alal) | Asunto: Actualización de Cotización #1 - Obra de Arte H | Estado: REGISTRADO_LOCAL | Detalle: No se pudo despachar el correo (servidor local sin servidor SMTP activo). Se ha registrado la notificación en el sistema.
+[2026-10-12 22:24:04] Destinatario: juandavidamarilesrincon@gmail.com (al alal) | Asunto: Actualización de Cotización #1 - Obra de Arte H | Estado: REGISTRADO_LOCAL | Detalle: Fallo en envío SMTP: Autenticación SMTP fallida: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials ada2fe7eead31-7cb35391722sm7206959137.4 - gsmtp
+
+[2026-10-12 22:35:54] Destinatario: juandavidamarilesrincon@gmail.com (al alal) | Asunto: Actualización de Cotización #1 - Obra de Arte H | Estado: REGISTRADO_LOCAL | Detalle: Fallo en envío SMTP: Autenticación SMTP fallida: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials a1e0cc1a2514c-99003f66ad9sm7070608241.10 - gsmtp
+
+[2026-10-12 22:43:26] Destinatario: obradearteh@gmail.com (Test) | Asunto: Prueba de envio | Estado: REGISTRADO_LOCAL | Detalle: Fallo en envío SMTP: Autenticación SMTP fallida: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 71dfb90a1353d-5e94758fa4asm2876713e0c.17 - gsmtp
+
+[2026-10-12 22:51:56] Destinatario: obradearteh@gmail.com (Administrador) | Asunto: Prueba de Conexión de Correo - Obra de Arte H | Estado: REGISTRADO_LOCAL | Detalle: Fallo en envío SMTP: Autenticación SMTP fallida: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 71dfb90a1353d-5e91cb3117esm7604260e0c.9 - gsmtp
+[AYUDA] Google/Gmail rechazó la contraseña. Google no acepta la contraseña habitual de tu cuenta para SMTP. Debes generar una 'Contraseña de Aplicación' de 16 caracteres en https://myaccount.google.com/apppasswords teniendo la 'Verificación en 2 pasos' activada.
+[2026-10-12 22:53:29] Destinatario: juandavidamarilesrincon@gmail.com (al alal) | Asunto: Actualización de Cotización #1 - Obra de Arte H | Estado: REGISTRADO_LOCAL | Detalle: Fallo en envío SMTP: Autenticación SMTP fallida: 535-5.7.8 Username and Password not accepted. For more information, go to
+535 5.7.8  https://support.google.com/mail/?p=BadCredentials 71dfb90a1353d-5e91cc14668sm7632629e0c.16 - gsmtp
+[AYUDA] Google/Gmail rechazó la contraseña. Google no acepta la contraseña habitual de tu cuenta para SMTP. Debes generar una 'Contraseña de Aplicación' de 16 caracteres en https://myaccount.google.com/apppasswords teniendo la 'Verificación en 2 pasos' activada.
+[2026-10-12 23:06:28] Destinatario: juandavidamarilesrincon@gmail.com (al alal) | Asunto: Actualización de Cotización #1 - Obra de Arte H | Estado: ENVIADO | Detalle: Enviado con éxito vía SMTP (smtp.gmail.com).
