@@ -391,9 +391,7 @@ $fallbacks = [
         </div>
     </div>
 
-    <!-- =========================================================
-         Modal Visor de Detalle de Obra
-         ========================================================= -->
+
     <div class="modal-overlay" id="modalVisor">
         <div class="modal-caja modal-visor-caja tarjeta tarjeta--marco">
             <div>

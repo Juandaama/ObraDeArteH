@@ -1,7 +1,7 @@
 <?php
 require_once '../../DB/conexion.php';
 
-$usuarios = $pdo->query('SELECT id, nombre, apellido, telefono, correo , rol FROM usuarios ORDER BY id DESC')->fetchAll();
+$usuarios = $pdo->query('SELECT id, nombre, apellido, edad, telefono, correo , rol FROM usuarios ORDER BY id DESC')->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -25,6 +25,7 @@ $usuarios = $pdo->query('SELECT id, nombre, apellido, telefono, correo , rol FRO
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Apellido</th>
+                        <th>Edad</th>
                         <th>Telefono</th>
                         <th>Correo</th>
                         <th>Rol</th>
@@ -34,7 +35,7 @@ $usuarios = $pdo->query('SELECT id, nombre, apellido, telefono, correo , rol FRO
                 <tbody>
                     <?php if (empty($usuarios)): ?>
                         <tr>
-                            <td colspan="7" style="text-align: center; padding: 24px; color: var(--color-texto-secundario);">
+                            <td colspan="8" style="text-align: center; padding: 24px; color: var(--color-texto-secundario);">
                                 No hay usuarios registrados.
                             </td>
                         </tr>
@@ -44,6 +45,7 @@ $usuarios = $pdo->query('SELECT id, nombre, apellido, telefono, correo , rol FRO
                                 <td><?php echo $u['id']; ?></td>
                                 <td><?php echo htmlspecialchars($u['nombre']); ?></td>
                                 <td><?php echo htmlspecialchars($u['apellido']); ?></td>
+                                <td><?php echo !empty($u['edad']) ? htmlspecialchars($u['edad']) . ' años' : '-'; ?></td>
                                 <td><?php echo htmlspecialchars($u['telefono']); ?></td>
                                 <td><?php echo htmlspecialchars($u['correo']); ?></td>
                                 <td>

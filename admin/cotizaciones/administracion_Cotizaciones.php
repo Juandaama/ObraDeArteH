@@ -128,28 +128,24 @@ $totalRechazadas  = $pdo->query("SELECT COUNT(*) FROM cotizaciones WHERE estado 
             <div class="metrica-tarjeta">
                 <div class="metrica-tarjeta__encabezado">
                     <span class="metrica-tarjeta__etiqueta">Todas</span>
-                    <span class="metrica-tarjeta__icono">&#128196;</span>
                 </div>
                 <div class="metrica-tarjeta__valor"><?= $totalTodas ?></div>
             </div>
             <div class="metrica-tarjeta">
                 <div class="metrica-tarjeta__encabezado">
                     <span class="metrica-tarjeta__etiqueta">Pendientes</span>
-                    <span class="metrica-tarjeta__icono">&#9203;</span>
                 </div>
                 <div class="metrica-tarjeta__valor" style="color: #b37400;"><?= $totalPendientes ?></div>
             </div>
             <div class="metrica-tarjeta">
                 <div class="metrica-tarjeta__encabezado">
                     <span class="metrica-tarjeta__etiqueta">En Revisión</span>
-                    <span class="metrica-tarjeta__icono">&#128269;</span>
                 </div>
                 <div class="metrica-tarjeta__valor" style="color: #125586;"><?= $totalRevision ?></div>
             </div>
             <div class="metrica-tarjeta">
                 <div class="metrica-tarjeta__encabezado">
                     <span class="metrica-tarjeta__etiqueta">Aprobadas</span>
-                    <span class="metrica-tarjeta__icono">&#9989;</span>
                 </div>
                 <div class="metrica-tarjeta__valor" style="color: #1e701e;"><?= $totalAprobadas ?></div>
             </div>
@@ -159,7 +155,6 @@ $totalRechazadas  = $pdo->query("SELECT COUNT(*) FROM cotizaciones WHERE estado 
             <form method="GET" action="" style="display: flex; flex-direction: column; gap: 16px;">
                 <div class="catalogo-controles__superior">
                     <div class="buscador-caja" style="max-width: 100%;">
-                        <span class="buscador-caja__icono">&#128269;</span>
                         <input 
                             type="text" 
                             name="q" 

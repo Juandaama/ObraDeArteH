@@ -9,6 +9,7 @@ if (!isset($_POST['id']) || empty($_POST['id']) || !is_numeric($_POST['id'])) {
 $id       = (int)$_POST['id'];
 $nombre   = trim($_POST['nombre'] ?? '');
 $apellido = trim($_POST['apellido'] ?? '');
+$edad     = trim($_POST['edad'] ?? '');
 $telefono = trim($_POST['telefono'] ?? '');
 $correo   = trim($_POST['correo'] ?? '');
 $rol      = trim($_POST['rol'] ?? 'usuario');
@@ -19,6 +20,8 @@ if ($nombre === '' || $apellido === '' || $telefono === '' || $correo === '') {
     $error = 'Todos los campos son obligatorios.';
 } elseif (!preg_match('/^[0-9]{7,15}$/', $telefono)) {
     $error = 'El número de teléfono solo debe contener números (entre 7 y 15 dígitos).';
+} elseif (!empty($edad) && (!is_numeric($edad) || (int)$edad < 18 || (int)$edad > 100)) {
+    $error = 'Por favor ingresa una edad válida en números (entre 18 y 100 años).';
 } elseif (!preg_match('/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/', $correo) || !filter_var($correo, FILTER_VALIDATE_EMAIL)) {
     $error = 'Ingresa un correo electrónico válido con dominio completo (ejemplo: usuario@gmail.com).';
 } else {
@@ -28,9 +31,10 @@ if ($nombre === '' || $apellido === '' || $telefono === '' || $correo === '') {
     if ($stmtCorreo->fetch()) {
         $error = 'Ese correo electrónico ya está registrado por otro usuario.';
     } else {
-        $sql = "UPDATE usuarios SET nombre = ?, apellido = ?, telefono = ?, correo = ?, rol = ? WHERE id = ?";
+        $edadFinal = (!empty($edad) && is_numeric($edad)) ? (int)$edad : null;
+        $sql = "UPDATE usuarios SET nombre = ?, apellido = ?, edad = ?, telefono = ?, correo = ?, rol = ? WHERE id = ?";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$nombre, $apellido, $telefono, $correo, $rol, $id]);
+        $stmt->execute([$nombre, $apellido, $edadFinal, $telefono, $correo, $rol, $id]);
 
         // Si se actualizó el usuario en sesión
         if (isset($_SESSION['id']) && $_SESSION['id'] === $id) {

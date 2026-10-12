@@ -8,7 +8,7 @@ if (!isset($_SESSION['rol']) || $_SESSION['rol'] !== 'administrador') {
     exit;
 }
 
-// Asegurar existencia de la tabla cotizaciones
+
 try {
     $pdo->exec("
         CREATE TABLE IF NOT EXISTS `cotizaciones` (
@@ -89,7 +89,6 @@ $nombreAdmin = htmlspecialchars($_SESSION['nombre'] ?? 'Administrador');
             <div class="metrica-tarjeta">
                 <div class="metrica-tarjeta__encabezado">
                     <span class="metrica-tarjeta__etiqueta">Proyectos en Catálogo</span>
-                    <span class="metrica-tarjeta__icono">&#128444;</span>
                 </div>
                 <div class="metrica-tarjeta__valor"><?= $totalPubs ?></div>
             </div>
@@ -97,7 +96,6 @@ $nombreAdmin = htmlspecialchars($_SESSION['nombre'] ?? 'Administrador');
             <div class="metrica-tarjeta">
                 <div class="metrica-tarjeta__encabezado">
                     <span class="metrica-tarjeta__etiqueta">Usuarios Registrados</span>
-                    <span class="metrica-tarjeta__icono">&#128101;</span>
                 </div>
                 <div class="metrica-tarjeta__valor"><?= $totalUsuarios ?></div>
             </div>
@@ -105,7 +103,6 @@ $nombreAdmin = htmlspecialchars($_SESSION['nombre'] ?? 'Administrador');
             <div class="metrica-tarjeta">
                 <div class="metrica-tarjeta__encabezado">
                     <span class="metrica-tarjeta__etiqueta">Total Cotizaciones</span>
-                    <span class="metrica-tarjeta__icono">&#128221;</span>
                 </div>
                 <div class="metrica-tarjeta__valor"><?= $totalCotizaciones ?></div>
             </div>
@@ -113,7 +110,6 @@ $nombreAdmin = htmlspecialchars($_SESSION['nombre'] ?? 'Administrador');
             <div class="metrica-tarjeta">
                 <div class="metrica-tarjeta__encabezado">
                     <span class="metrica-tarjeta__etiqueta">Cotizaciones Pendientes</span>
-                    <span class="metrica-tarjeta__icono">&#9203;</span>
                 </div>
                 <div class="metrica-tarjeta__valor" style="color: var(--color-acento);"><?= $cotizacionesPendientes ?></div>
             </div>

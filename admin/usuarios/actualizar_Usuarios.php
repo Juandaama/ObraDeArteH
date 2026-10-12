@@ -56,7 +56,13 @@ if (!$usuario) {
                     </div>
 
                     <div class="campo">
-                        <label for="telefono">Teléfono (Solo números):</label>
+                        <label for="edad">Edad:</label>
+                        <input type="number" id="edad" name="edad"
+                               value="<?= htmlspecialchars($usuario['edad'] ?? '') ?>" min="18" max="100" class="entrada" placeholder="Ej: 30">
+                    </div>
+
+                    <div class="campo">
+                        <label for="telefono">Teléfono:</label>
                         <input type="tel" id="telefono" name="telefono"
                                value="<?= htmlspecialchars($usuario['telefono']) ?>" required class="entrada"
                                inputmode="numeric" pattern="[0-9]{7,15}" title="Ingresa un número telefónico de 7 a 15 dígitos sin letras"
@@ -116,6 +122,16 @@ if (!$usuario) {
                 alert('El teléfono debe contener únicamente números (entre 7 y 15 dígitos).');
                 tel.focus();
                 return;
+            }
+
+            const edad = document.getElementById('edad');
+            if (edad && edad.value.trim() !== '') {
+                const edadNum = parseInt(edad.value.trim(), 10);
+                if (isNaN(edadNum) || edadNum < 18 || edadNum > 100) {
+                    alert('Por favor ingresa una edad válida en números (entre 18 y 100 años).');
+                    edad.focus();
+                    return;
+                }
             }
 
             const correo = document.getElementById('correo');

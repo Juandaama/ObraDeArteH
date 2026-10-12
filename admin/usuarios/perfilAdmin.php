@@ -2,7 +2,6 @@
 session_start();
 require_once '../../DB/conexion.php';
 
-// Asegurar existencia de las columnas necesarias en la base de datos
 try {
     $colCheck = $pdo->query("SHOW COLUMNS FROM usuarios LIKE 'foto_perfil'")->fetch();
     if (!$colCheck) {
@@ -76,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $esAdmin && $modo === 'edicion') {
     $correo      = trim($_POST['correo'] ?? '');
     $descripcion = trim($_POST['descripcion'] ?? '');
 
-    // Validaciones estrictas reteniendo valores
+
     if ($nombre === '' || $apellido === '' || $telefono === '' || $correo === '') {
         $error = 'Por favor completa todos los campos obligatorios.';
     } elseif (!preg_match('/^[0-9]{7,15}$/', $telefono)) {
@@ -172,14 +171,14 @@ if (!empty($fotoPerfil)) {
 <body>
     <div class="pagina">
         <div class="tarjeta tarjeta--marco tarjeta--perfil">
-            <!-- Enlace Volver -->
+
             <?php if ($modo === 'edicion'): ?>
                 <a href="../panel.php" class="enlace-volver">&larr; Volver al Panel Admin</a>
             <?php else: ?>
                 <a href="../../lobby/catalogo.php" class="enlace-volver">&larr; Volver al Catálogo</a>
             <?php endif; ?>
 
-            <!-- Encabezado con Logo de la Empresa -->
+
             <div class="tarjeta__encabezado">
                 <div class="marca-logo">
                     <img src="../../img/Logo.PNG" alt="Obra de Arte Arquitectura" class="marca-logo__imagen">
@@ -191,7 +190,7 @@ if (!empty($fotoPerfil)) {
             </div>
 
             <div class="tarjeta__cuerpo">
-                <!-- Alertas de Estado -->
+
                 <?php if (!empty($error)): ?>
                     <div class="alerta alerta--error">
                         <p><?= htmlspecialchars($error) ?></p>
@@ -205,11 +204,9 @@ if (!empty($fotoPerfil)) {
                 <?php endif; ?>
 
                 <?php if ($modo === 'edicion' && $esAdmin): ?>
-                    <!-- ==========================================
-                         MODO EDICIÓN (Solo Administrador)
-                         ========================================== -->
+
                     <form action="perfilAdmin.php?modo=edicion" method="POST" enctype="multipart/form-data" class="formulario" id="form-perfil-admin">
-                        <!-- Sección de Foto de Perfil con Vista Previa -->
+                        
                         <div class="perfil-avatar-seccion">
                             <div class="perfil-avatar-marco">
                                 <img src="<?= htmlspecialchars($rutaFotoDisplay) ?>" alt="Foto de perfil" class="perfil-avatar-img" id="img-preview">
@@ -220,7 +217,7 @@ if (!empty($fotoPerfil)) {
                             </div>
                         </div>
 
-                        <!-- Mini apartados: Nombre y Apellido -->
+                        
                         <div class="perfil-grid">
                             <div class="campo">
                                 <label for="nombre">Nombre *:</label>
@@ -233,7 +230,7 @@ if (!empty($fotoPerfil)) {
                             </div>
                         </div>
 
-                        <!-- Mini apartados: Edad y Teléfono -->
+                        
                         <div class="perfil-grid">
                             <div class="campo">
                                 <label for="edad">Edad:</label>
@@ -246,26 +243,24 @@ if (!empty($fotoPerfil)) {
                             </div>
                         </div>
 
-                        <!-- Apartado: Correo Electrónico -->
+                       
                         <div class="campo">
                             <label for="correo">Correo Electrónico *:</label>
                             <input type="email" id="correo" name="correo" value="<?= htmlspecialchars($correo) ?>" required class="entrada" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Ingresa un correo con dominio válido (ej: usuario@gmail.com)" placeholder="ejemplo@obradearteh.com">
                         </div>
 
-                        <!-- Apartado: Descripción / Biografía -->
+                        
                         <div class="campo perfil-bio-bloque">
                             <label for="descripcion">Descripción / Perfil Profesional:</label>
                             <textarea id="descripcion" name="descripcion" class="entrada" rows="4" placeholder="Describe tu experiencia, especialidades de remodelación y visión profesional..."><?= htmlspecialchars($descripcion) ?></textarea>
                         </div>
 
-                        <!-- Botón Guardar con validación previa -->
+                        
                         <button type="button" class="boton boton--primario" onclick="validarYPedirConfirmacion()">Guardar Cambios</button>
                     </form>
 
                 <?php else: ?>
-                    <!-- ==========================================
-                         MODO VISUALIZACIÓN / SOLO LECTURA (Lobby)
-                         ========================================== -->
+                    
                     <div class="perfil-avatar-seccion">
                         <div class="perfil-avatar-marco">
                             <img src="<?= htmlspecialchars($rutaFotoDisplay) ?>" alt="Foto de perfil del Administrador" class="perfil-avatar-img">
@@ -274,7 +269,7 @@ if (!empty($fotoPerfil)) {
                         <span class="perfil-cargo-insignia">Administrador &bull; Arquitectura y Diseño</span>
                     </div>
 
-                    <!-- Apartado de Descripción -->
+                    
                     <div class="perfil-bio-bloque">
                         <label style="font-family:var(--fuente-subtitulo); font-size:0.78rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--color-texto-secundario); font-weight:600;">
                             Acerca del Administrador:
@@ -327,7 +322,7 @@ if (!empty($fotoPerfil)) {
         </div>
     </div>
 
-    <!-- Modal de Confirmación para Edición -->
+    
     <div class="modal-overlay" id="modalConfirmacionPerfil">
         <div class="modal-caja tarjeta tarjeta--marco">
             <p class="modal-mensaje">¿Confirmas que deseas guardar los cambios en tu perfil de administrador?</p>
